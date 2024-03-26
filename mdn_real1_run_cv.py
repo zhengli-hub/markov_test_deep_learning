@@ -88,6 +88,8 @@ config = Setting()
 pvalue_ls = []
 config.test_lag = int(config.dim + 1)
 tf.config.set_soft_device_placement(True)
+tf.config.threading.set_intra_op_parallelism_threads(19)
+tf.config.threading.set_inter_op_parallelism_threads(19)
 
 while True:
     try:
