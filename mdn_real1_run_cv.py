@@ -2,6 +2,7 @@ from markov_test.REAL import *
 import argparse
 import pandas as pd
 import numpy as np
+import tensorflow as tf
 
 parser = argparse.ArgumentParser(description="mdn")
 parser.add_argument("-L", "--L", type=int, default=3)
@@ -86,6 +87,8 @@ config = Setting()
 
 pvalue_ls = []
 config.test_lag = int(config.dim + 1)
+tf.config.set_soft_device_placement(True)
+
 while True:
     try:
         k_forward, k_backward = real_cv(config, series)
