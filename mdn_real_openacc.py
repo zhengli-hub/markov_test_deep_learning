@@ -20,7 +20,7 @@ args0 = parser.parse_args()
 
 string = f"mdn_real_ngsim_file_{args0.file_n}_dg_{args0.dim}_rep_{args0.rep}"
 
-df = pd.read_csv(f'data/ngsim/{args0.file_n}.csv', usecols=['speed', 'spacing', 'speed difference'])
+df = pd.read_csv(f'data/openacc/{args0.file_n}.csv', usecols=['follower_speed', 'spacing', 'speed_diff'])
 series = np.array(df)
 
 class Setting:
