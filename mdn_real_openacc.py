@@ -16,12 +16,27 @@ parser.add_argument("-num_h", "--num_h", type=int, default=40)
 parser.add_argument("-n_iter", "--n_iter", type=int, default=6000)
 parser.add_argument("-file_n", "--file_n", type=int, default=0)
 parser.add_argument("-rep", "--rep", type=int, default=0)
+parser.add_argument("-is_fraction", "--is_fraction", type=bool, default=False)
 args0 = parser.parse_args()
 
-string = f"mdn_real_ngsim_file_{args0.file_n}_dg_{args0.dim}_rep_{args0.rep}"
+string = (
+    f"mdn_real_openacc_file_fr{args0.file_n}_dg_{args0.dim}_rep_{args0.rep}"
+    if args0.is_fraction
+    else f"mdn_real_openacc_file_{args0.file_n}_dg_{args0.dim}_rep_{args0.rep}"
+)
 
-df = pd.read_csv(f'data/openacc/{args0.file_n}.csv', usecols=['follower_speed', 'spacing', 'speed_diff'])
+file_loc = (
+    f"data/openacc/{args0.file_n}_0.1.csv"
+    if args0.is_fraction
+    else f"data/openacc/{args0.file_n}.csv"
+)
+
+df = pd.read_csv(
+    file_loc,
+    usecols=["follower_speed", "spacing", "speed_diff"],
+)
 series = np.array(df)
+
 
 class Setting:
     def __init__(self):
