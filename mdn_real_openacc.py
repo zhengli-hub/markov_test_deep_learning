@@ -25,11 +25,11 @@ string = (
     else f"mdn_real_openacc_file_{args0.file_n}_dg_{args0.dim}_rep_{args0.rep}"
 )
 
-file_loc = (
-    f"data/openacc/{args0.file_n}_0.1.csv"
-    if args0.is_fraction
-    else f"data/openacc/{args0.file_n}.csv"
-)
+# file_loc = (
+#     f"data/openacc/{args0.file_n}_0.1.csv"
+#     if args0.is_fraction
+#     else f"data/openacc/{args0.file_n}.csv"
+# )
 
 # df = pd.read_csv(
 #     file_loc,
@@ -37,7 +37,10 @@ file_loc = (
 # )
 # series = np.array(df)
 
-series = np.load(f'data_0330/openacc_data/output_data/eigenvalue_test/0.1_500/{args0.file_n}.npy')
+series = np.load(
+    f"data_0330/openacc_data/output_data/eigenvalue_test/0.1_500/{args0.file_n}.npy"
+)
+
 
 class Setting:
     def __init__(self):
