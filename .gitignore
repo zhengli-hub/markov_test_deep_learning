@@ -160,3 +160,5 @@ cython_debug/
 .idea/
 
 result/
+
+stationarity_test_var.py

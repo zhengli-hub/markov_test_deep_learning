@@ -31,12 +31,13 @@ file_loc = (
     else f"data/openacc/{args0.file_n}.csv"
 )
 
-df = pd.read_csv(
-    file_loc,
-    usecols=["follower_speed", "spacing", "speed_diff"],
-)
-series = np.array(df)
+# df = pd.read_csv(
+#     file_loc,
+#     usecols=["follower_speed", "spacing", "speed_diff"],
+# )
+# series = np.array(df)
 
+series = np.load(f'data_0330/openacc_data/output_data/eigenvalue_test/0.1_500/{args0.file_n}.npy')
 
 class Setting:
     def __init__(self):

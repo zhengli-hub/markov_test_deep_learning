@@ -22,12 +22,11 @@ def check_stationarity(config):
     lag=config.A1.shape[0]
     cov = config.nstd*np.eye(config.x_dims)
     mu = np.zeros(config.x_dims)
-    I=np.concatenate([np.eye(config.x_dims*(lag-1)),np.zeros([config.x_dims*(lag-1),config.x_dims])],axis=1)
-    A=np.concatenate([np.concatenate([config.A1,config.A2,config.A3],axis=1),I],axis=0)
+    I = np.concatenate([np.eye(config.x_dims*(lag-1)), np.zeros([config.x_dims*(lag-1), config.x_dims])], axis=1)
+    A = np.concatenate([np.concatenate([config.A1, config.A2, config.A3], axis=1), I], axis=0)
     eigen=np.max([np.sqrt(a.real**2+a.imag**2) for a in np.linalg.eig(A)[0]])
     print(eigen)
 
-    
 def MDN_learning1(z_train,x_train,z_test0,hidden_units,k_mixt,M,num_iter,lr,seed_utils=2021):
     if seed_utils < 2018:
         return np.nan

@@ -1,3 +1,5 @@
+import sys
+
 from markov_test.REAL import *
 import argparse
 import pandas as pd
@@ -20,12 +22,13 @@ args0 = parser.parse_args()
 
 string = f"mdn_real_catsacc_file_{args0.file_n}_dg_{args0.dim}_rep_{args0.rep}"
 
-df = pd.read_csv(
-    f"data/catsacc/stationary/{args0.file_n}.csv",
-    usecols=["speed (m/s)", "speed difference (m/s)", "distance (m)"],
-)
-series = np.array(df)
+# df = pd.read_csv(
+#     f"data/catsacc/stationary/{args0.file_n}.csv",
+#     usecols=["speed (m/s)", "speed difference (m/s)", "distance (m)"],
+# )
+# series = np.array(df)
 
+series = np.load(f'data_0330/catsacc_data/output_data/no_test/0.1/{args0.file_n}.npy')
 
 class Setting:
     def __init__(self):
@@ -77,7 +80,10 @@ while True:
         config.k6 = k_backward
         pvalue = real(config, series)
         break
-    except:
+    except KeyboardInterrupt:
+        pvalue = None
+        sys.exit(130)
+    except Exception:
         pvalue = None
 pvalue_ls.append(pvalue)
 np.save("result/" + string, pvalue_ls)
