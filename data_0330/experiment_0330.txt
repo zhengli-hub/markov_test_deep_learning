@@ -1,0 +1,21 @@
+- experiment
+    - ngsim:
+        - .\data_0330\ngsim_data\output_data\eigenvalue_test\0.1
+        - (.\Data\ngsim_data\output_data\eigenvalue_test\0.1)
+        - 13 files
+        - do dim 0-30
+    - openacc:
+        - .\data_0330\openacc_data\output_data\eigenvalue_test\0.1_500
+        - (.\Data\openacc_data\output_data\eigenvalue_test\0.1_500)
+        - 50 files
+        - do dim 0-30
+    - catsacc:
+        - .\data_0330\catsacc_data\output_data\no_test\0.1
+        - (.\Data\catsacc_data\output_data\no_test\0.1)
+        - 49 files
+        - do dim 0-30
+    - catsacc:
+        - .\data_0330\catsacc_data\output_data\no_test\1
+        - (.\Data\catsacc_data\output_data\no_test\1)
+        - 24 files
+        - do dim 0-20
