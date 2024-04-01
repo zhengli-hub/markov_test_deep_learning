@@ -4,6 +4,7 @@ import pandas as pd
 import numpy as np
 import tensorflow as tf
 import os
+import sys
 
 parser = argparse.ArgumentParser(description="mdn")
 parser.add_argument("-L", "--L", type=int, default=3)
@@ -26,7 +27,6 @@ string = f"mdn_real_ngsim_file_{args0.file_n}_dg_{args0.dim}_rep_{args0.rep}"
 series = np.load(
     f"data_0330/ngsim_data/output_data/eigenvalue_test/0.1/{args0.file_n}_0.1.npy"
 )
-
 
 class Setting:
     def __init__(self):
@@ -67,19 +67,15 @@ config.test_lag = int(config.dim + 1)
 print("Num GPUs Available: ", len(tf.config.list_physical_devices("GPU")))
 tf.debugging.set_log_device_placement(True)
 
-while True:
-    try:
-        k_forward, k_backward = real_cv(config, series)
-        config.k1 = k_forward
-        config.k2 = k_forward
-        config.k3 = k_forward
-        config.k4 = k_backward
-        config.k5 = k_backward
-        config.k6 = k_backward
-        pvalue = real(config, series)
-        break
-    except:
-        pvalue = None
+
+k_forward, k_backward = real_cv(config, series)
+config.k1 = k_forward
+config.k2 = k_forward
+config.k3 = k_forward
+config.k4 = k_backward
+config.k5 = k_backward
+config.k6 = k_backward
+pvalue = real(config, series)
 pvalue_ls.append(pvalue)
 np.save("result/" + string, pvalue_ls)
 print("Result for ", string, " is ", pvalue_ls)

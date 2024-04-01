@@ -456,4 +456,4 @@ def real(config,series):
     Sigma_q_s = Sigma_q(lam)  # a list (len = Q-1) 2B * 2B.
     S = S_hat(lam = lam, dims = [N, K], J = test_lag)  # Construct the test statistics
     pValues = bootstrap_p_value(Sigma_q_s, rep_times = int(1e3), test_stat = S) 
-    return (pValues)
+    return (pValues, S)

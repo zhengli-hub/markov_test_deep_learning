@@ -74,7 +74,7 @@ class Setting:
 
 config = Setting()
 
-pvalue_ls = []
+res_value_ls = []
 config.test_lag = int(config.dim + 1)
 print("Num GPUs Available: ", len(tf.config.list_physical_devices("GPU")))
 tf.debugging.set_log_device_placement(True)
@@ -88,13 +88,16 @@ while True:
         config.k4 = k_backward
         config.k5 = k_backward
         config.k6 = k_backward
-        pvalue = real(config, series)
+        pvalue, S = real(config, series)
         break
     except KeyboardInterrupt:
         pvalue = None
+        S = None
         sys.exit(130)
     except Exception:
         pvalue = None
-pvalue_ls.append(pvalue)
-np.save("result/" + string, pvalue_ls)
-print("Result for ", string, " is ", pvalue_ls)
+        S = None
+res_value_ls.append(pvalue)
+res_value_ls.append(S)
+np.save("result/" + string, res_value_ls)
+print("Result for ", string, " is ", res_value_ls)
