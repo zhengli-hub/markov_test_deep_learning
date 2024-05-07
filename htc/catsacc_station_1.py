@@ -4,7 +4,8 @@ from os.path import isfile, join
 catsacc = "../data_0330/catsacc_data/output_data/no_test/1"
 
 DG = 20
-REP = 1
+REP_START = 0
+REP_STOP = 20
 
 
 def remove_suffix(input_string, suffix):
@@ -21,10 +22,10 @@ filenames = sorted(filenames)
 
 outputstr = ""
 
-for rep in range(REP):
+for rep in range(REP_START, REP_STOP):
     for dg in range(DG):
         for name in filenames:
             outputstr += f"{name}, {dg}, {rep}\n"
 
-with open("catsacc_station_d1_dg20_rep1.txt", "w") as outfile:
+with open(f"catsacc_station_d1_dg{DG}_rep{REP_START}-{REP_STOP}.txt", "w") as outfile:
     outfile.write(outputstr)
