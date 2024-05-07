@@ -21,11 +21,8 @@ args0 = parser.parse_args()
 
 string = f"mdn_real_ngsim_file_{args0.file_n}_dg_{args0.dim}_rep_{args0.rep}"
 
-# df = pd.read_csv(f'data/ngsim/{args0.file_n}.csv', usecols=['speed', 'spacing', 'speed difference'])
-# series = np.array(df)
-
 series = np.load(
-    f"data_0330/ngsim_data/output_data/eigenvalue_test/0.1/{args0.file_n}_0.1.npy"
+    f"data_0507/ngsim_data/output_data/no_test/1s_npy/{args0.file_n}_1.npy"
 )
 
 class Setting:

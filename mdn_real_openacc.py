@@ -4,6 +4,7 @@ import pandas as pd
 import numpy as np
 import tensorflow as tf
 import os
+import sys
 
 parser = argparse.ArgumentParser(description="mdn")
 parser.add_argument("-L", "--L", type=int, default=3)
@@ -14,33 +15,15 @@ parser.add_argument("-lr", "--lr", type=float, default=0.005)
 parser.add_argument("-dim", "--dim", type=int, default=0)
 parser.add_argument("-num_h", "--num_h", type=int, default=40)
 parser.add_argument("-n_iter", "--n_iter", type=int, default=6000)
-parser.add_argument("-file_n", "--file_n", type=str, default="")
+parser.add_argument("-file_n", "--file_n", type=int, default=0)
 parser.add_argument("-rep", "--rep", type=int, default=0)
-parser.add_argument("-is_fraction", "--is_fraction", type=bool, default=False)
 args0 = parser.parse_args()
 
-string = (
-    f"mdn_real_openacc_file_fr{args0.file_n}_dg_{args0.dim}_rep_{args0.rep}"
-    if args0.is_fraction
-    else f"mdn_real_openacc_file_{args0.file_n}_dg_{args0.dim}_rep_{args0.rep}"
-)
-
-# file_loc = (
-#     f"data/openacc/{args0.file_n}_0.1.csv"
-#     if args0.is_fraction
-#     else f"data/openacc/{args0.file_n}.csv"
-# )
-
-# df = pd.read_csv(
-#     file_loc,
-#     usecols=["follower_speed", "spacing", "speed_diff"],
-# )
-# series = np.array(df)
+string = f"mdn_real_ngsim_file_{args0.file_n}_dg_{args0.dim}_rep_{args0.rep}"
 
 series = np.load(
-    f"data_0330/openacc_data/output_data/eigenvalue_test/0.1_500/{args0.file_n}.npy"
+    f"data_0507/openacc_data/no_test/1s_npy/{args0.file_n}_1s.npy"
 )
-
 
 class Setting:
     def __init__(self):
@@ -81,19 +64,15 @@ config.test_lag = int(config.dim + 1)
 print("Num GPUs Available: ", len(tf.config.list_physical_devices("GPU")))
 tf.debugging.set_log_device_placement(True)
 
-while True:
-    try:
-        k_forward, k_backward = real_cv(config, series)
-        config.k1 = k_forward
-        config.k2 = k_forward
-        config.k3 = k_forward
-        config.k4 = k_backward
-        config.k5 = k_backward
-        config.k6 = k_backward
-        pvalue = real(config, series)
-        break
-    except:
-        pvalue = None
+
+k_forward, k_backward = real_cv(config, series)
+config.k1 = k_forward
+config.k2 = k_forward
+config.k3 = k_forward
+config.k4 = k_backward
+config.k5 = k_backward
+config.k6 = k_backward
+pvalue = real(config, series)
 pvalue_ls.append(pvalue)
 np.save("result/" + string, pvalue_ls)
 print("Result for ", string, " is ", pvalue_ls)
