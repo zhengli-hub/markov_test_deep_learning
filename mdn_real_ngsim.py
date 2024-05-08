@@ -19,11 +19,10 @@ parser.add_argument("-file_n", "--file_n", type=int, default=0)
 parser.add_argument("-rep", "--rep", type=int, default=0)
 args0 = parser.parse_args()
 
-string = f"mdn_real_ngsim_file_{args0.file_n}_dg_{args0.dim}_rep_{args0.rep}"
+string = f"mdn_real_ngsim1s_{args0.file_n}_dg_{args0.dim}_rep_{args0.rep}"
 
-series = np.load(
-    f"data_0507/ngsim_data/output_data/no_test/1s_npy/{args0.file_n}_1.npy"
-)
+series = np.load(f"data_0507/ngsim_data/output_data/no_test/1s_npy/{args0.file_n}")
+
 
 class Setting:
     def __init__(self):
