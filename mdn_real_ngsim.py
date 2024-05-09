@@ -15,15 +15,14 @@ parser.add_argument("-lr", "--lr", type=float, default=0.005)
 parser.add_argument("-dim", "--dim", type=int, default=0)
 parser.add_argument("-num_h", "--num_h", type=int, default=40)
 parser.add_argument("-n_iter", "--n_iter", type=int, default=6000)
-parser.add_argument("-file_n", "--file_n", type=int, default=0)
+parser.add_argument("-file", "--file", type=str, default="")
 parser.add_argument("-rep", "--rep", type=int, default=0)
 args0 = parser.parse_args()
 
-string = f"mdn_real_ngsim_file_{args0.file_n}_dg_{args0.dim}_rep_{args0.rep}"
+string = f"mdn_real_ngsim1s_{args0.file}_dg_{args0.dim}_rep_{args0.rep}"
 
-series = np.load(
-    f"data_0507/ngsim_data/output_data/no_test/1s_npy/{args0.file_n}_1.npy"
-)
+series = np.load(f"data_0507/ngsim_data/no_test/1s_npy/{args0.file}")
+
 
 class Setting:
     def __init__(self):
