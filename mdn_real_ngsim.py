@@ -21,7 +21,7 @@ args0 = parser.parse_args()
 
 string = f"mdn_real_ngsim1s_{args0.file}_dg_{args0.dim}_rep_{args0.rep}"
 
-series = np.load(f"data_0507/ngsim_data/no_test/1s_npy/{args0.file}")
+series = np.load(f"data_0507/ngsim_data/no_test/1s_80_npy/{args0.file}")
 
 
 class Setting:
