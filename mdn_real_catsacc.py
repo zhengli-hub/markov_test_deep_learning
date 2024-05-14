@@ -16,28 +16,30 @@ parser.add_argument("-lr", "--lr", type=float, default=0.005)
 parser.add_argument("-dim", "--dim", type=int, default=0)
 parser.add_argument("-num_h", "--num_h", type=int, default=40)
 parser.add_argument("-n_iter", "--n_iter", type=int, default=6000)
-parser.add_argument("-file_n", "--file_n", type=str, default="")
+parser.add_argument("-file", "--file", type=str, default="")
 parser.add_argument("-rep", "--rep", type=int, default=0)
 parser.add_argument("-is_fraction", "--is_fraction", type=bool, default=False)
 args0 = parser.parse_args()
 
 string = (
-    f"mdn_real_catsacc_file_fr_{args0.file_n}_dg_{args0.dim}_rep_{args0.rep}"
+    f"mdn_real_catsacc_file_fr_{args0.file}_dg_{args0.dim}_rep_{args0.rep}"
     if args0.is_fraction
-    else f"mdn_real_catsacc_file_d1_{args0.file_n}_dg_{args0.dim}_rep_{args0.rep}"
+    else f"mdn_real_catsacc1s_{args0.file}_dg_{args0.dim}_rep_{args0.rep}"
 )
 
 # df = pd.read_csv(
-#     f"data/catsacc/stationary/{args0.file_n}.csv",
+#     f"data/catsacc/stationary/{args0.file}.csv",
 #     usecols=["speed (m/s)", "speed difference (m/s)", "distance (m)"],
 # )
 # series = np.array(df)
 
-series = (
-    np.load(f"data_0330/catsacc_data/output_data/no_test/0.1/{args0.file_n}.npy")
-    if args0.is_fraction
-    else np.load(f"data_0330/catsacc_data/output_data/no_test/1/{args0.file_n}.npy")
-)
+# series = (
+#     np.load(f"data_0330/catsacc_data/output_data/no_test/0.1/{args0.file}.npy")
+#     if args0.is_fraction
+#     else np.load(f"data_0330/catsacc_data/output_data/no_test/1/{args0.file}.npy")
+# )
+
+series = np.load(f"data_0507/catsacc_data/no_test_120s/{args0.file}")
 
 
 class Setting:
