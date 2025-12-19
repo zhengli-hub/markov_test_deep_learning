@@ -160,5 +160,9 @@ cython_debug/
 .idea/
 
 result/
+result_*/
 
 stationarity_test_var.py
+
+# htcondor job log
+log/

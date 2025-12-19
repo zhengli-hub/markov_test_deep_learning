@@ -1,10 +1,9 @@
 from markov_test.REAL import *
 import argparse
+import os
 import pandas as pd
 import numpy as np
 import tensorflow as tf
-import os
-import sys
 
 parser = argparse.ArgumentParser(description="mdn")
 parser.add_argument("-L", "--L", type=int, default=3)
@@ -19,10 +18,10 @@ parser.add_argument("-file", "--file", type=str, default="")
 parser.add_argument("-rep", "--rep", type=int, default=0)
 args0 = parser.parse_args()
 
-string = f"mdn_real_openacc1218_{args0.file}_dg_{args0.dim}_rep_{args0.rep}"
+safe_file = args0.file.replace('/', '__')
+out_filename = f"mdn_real_1218_{safe_file}_dg_{args0.dim}_rep_{args0.rep}"
 
-series = np.load(f"data_1218/step2_ASta/{args0.file}")
-# series = np.load(f"data_1218/step2_ZalaZone/{args0.file}")
+series = np.load(f"data_1218/{args0.file}")
 
 class Setting:
     def __init__(self):
@@ -73,5 +72,7 @@ config.k5 = k_backward
 config.k6 = k_backward
 pvalue = real(config, series)
 pvalue_ls.append(pvalue)
-np.save("result/" + string, pvalue_ls)
-print("Result for ", string, " is ", pvalue_ls)
+save_path = "result/" + out_filename
+os.makedirs(os.path.dirname(save_path), exist_ok=True)
+np.save(save_path, pvalue_ls)
+print("Result for ", out_filename, " is ", pvalue_ls)

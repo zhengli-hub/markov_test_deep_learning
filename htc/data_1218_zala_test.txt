@@ -1,0 +1,1 @@
+step2_ZalaZone/csv_step2_ZalaZone-traid_0-avid_2-slice_0.npy 0 0 step2_ZalaZone_csv_step2_ZalaZone-traid_0-avid_2-slice_0.npy

@@ -1,0 +1,27 @@
+universe                = docker
+docker_image            = 1336314232/markov-dl:latest
+
+environment             = "MPLCONFIGDIR=/tmp;PYTHONPATH=."
+
+executable              = htc/run_data_1218.sh
+arguments               = $(file) $(dim) $(rep)
+
+log                     = log/data_1218.$(ClusterId).$(file).$(dim).$(rep).log
+error                   = log/data_1218.$(ClusterId).$(file).$(dim).$(rep).err
+output                  = log/data_1218.$(ClusterId).$(file).$(dim).$(rep).out
+
+preserve_relative_paths = True
+transfer_input_files    = htc/run_data_1218.sh, mdn_real_openacc_1218.py, markov_test, data_1218/step2_ASta
+transfer_output_files   = result_1218_asta/
+should_transfer_files   = YES
+when_to_transfer_output = ON_EXIT
+
+request_cpus            = 1
+request_memory          = 4GB
+request_disk            = 4GB
+
+notification = Complete
+notify_user = zli2674@wisc.edu
+
+# Queue from the ASta manifest (file path, dimension, repetition, safe file tag)
+queue file, dim, rep from htc/data_1218_step2_ASta_dg20_rep1.txt
